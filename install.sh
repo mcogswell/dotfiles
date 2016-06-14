@@ -10,3 +10,4 @@ ln -siv "$DOTFILES_DIR/runcom/.bash_profile" ~
 ln -siv "$DOTFILES_DIR/runcom/.inputrc" ~
 ln -siv "$DOTFILES_DIR/runcom/.profile" ~
 ln -siv "$DOTFILES_DIR/runcom/.vimrc" ~
+ln -siv "$DOTFILES_DIR/runcom/.git-prompt.sh" ~
