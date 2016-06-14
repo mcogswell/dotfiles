@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/cogswell/Dropbox/mcogswell.github.com/cat_vis'
+let g:netrw_dirhist_2='/Users/cogswell/Dropbox/mcogswell.github.com/why_cat'
+let g:netrw_dirhist_3='/Users/cogswell/Dropbox/mcogswell.github.com/cat_vis'
+let g:netrw_dirhist_4='/Users/cogswell/Dropbox/projects/ms_thesis/cleanthesis'
+let g:netrw_dirhist_5='/Users/cogswell/Dropbox/mcogswell.github.com/why_cat_2'
+let g:netrw_dirhist_6='/Users/cogswell/Dropbox/research/mcl_treenets/2016_nips_mcl/writeup/Images/cap_examples'
