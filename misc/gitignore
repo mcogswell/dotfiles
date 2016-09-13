@@ -1,0 +1,22 @@
+# latex
+**.bbl
+**.blg
+**.pdf
+**.bst
+**.brf
+**.out
+**.log
+**.fls
+**.aux
+**.dvi
+**.fdb_latexmk
+
+# vim temp files
+**.swp
+**.swo
+
+# mac zip meta file
+**.DS_Store
+
+# python files
+**.pyc
