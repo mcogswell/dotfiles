@@ -98,7 +98,9 @@ if [ -n "$DISPLAY" ]; then
 fi
 
 
-source /home/cogswell/torch/install/bin/torch-activate
+if [ -f /home/cogswell/torch/install/bin/torch-activate ]; then
+    source /home/cogswell/torch/install/bin/torch-activate
+fi
 # use this version of cogswell_libs until changes to the tasks framework are stabalized
 #export PYTHONPATH="$PYTHONPATH:/home/cogswell/projects/tree_nets/cogswell_libs/python/:/srv/share/data/mscoco/tools/"
 #export PYTHONPATH="$PYTHONPATH:/home/cogswell/build/cogswell_libs/python/:/srv/share/data/mscoco/tools/:lib/:/srv/share/gpu_lock/"
@@ -153,14 +155,9 @@ export TERM="rxvt-unicode"
 export PS1=""
 export WORKON_HOME=~/envs
 if [ $IS_UBUNTU == 0 ]; then
-    # python2.7
-    source $WORKON_HOME/ub_env/bin/activate
-    # python3.4
-    #source $WORKON_HOME/ub_env3/bin/activate
     source /usr/local/bin/virtualenvwrapper.sh
-else
-    source $WORKON_HOME/base_venv/bin/activate
-    source $WORKON_HOME/base_venv/bin/virtualenvwrapper.sh
+    workon env3
+    #workon env2
 fi
 
 export PROMPT_DIRTRIM=2

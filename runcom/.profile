@@ -29,5 +29,3 @@ if [ "$DISPLAY" ]; then
      BROWSER=chromium
 fi
 
-
-. /home/cogswell/torch/install/bin/torch-activate
