@@ -98,8 +98,8 @@ if [ -n "$DISPLAY" ]; then
 fi
 
 
-if [ -f /home/cogswell/torch/install/bin/torch-activate ]; then
-    source /home/cogswell/torch/install/bin/torch-activate
+if [ -f $HOME/torch/install/bin/torch-activate ]; then
+    source $HOME/torch/install/bin/torch-activate
 fi
 # use this version of cogswell_libs until changes to the tasks framework are stabalized
 #export PYTHONPATH="$PYTHONPATH:/home/cogswell/projects/tree_nets/cogswell_libs/python/:/srv/share/data/mscoco/tools/"
@@ -112,7 +112,7 @@ export PATH="$PATH:/home/cogswell/.gem/ruby/2.2.0/bin:/home/cogswell/.gem/ruby/1
 #export LD_LIBRARY_PATH="/usr/lib64/mpich/lib/:/usr/local/cuda-7.0/lib64/:/home/cogswell/usr/lib/cudnn_v3/:/home/cogswell/usr/lib/:$LD_LIBRARY_PATH"
 # 5/12/16
 #export LD_LIBRARY_PATH="/home/cogswell/Downloads/cudnn_v4/cuda/lib64/:/usr/lib64/mpich/lib/:/usr/local/cuda-7.0/lib64/:/home/cogswell/usr/lib/cudnn_v3/:/home/cogswell/usr/lib/:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH="/home/cogswell/Downloads/cudnn_v4/cuda/lib64/:/usr/lib64/mpich/lib/:/usr/local/cuda-7.5/lib64/:/home/cogswell/usr/lib/cudnn_v3/:/home/cogswell/usr/lib/:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="/usr/lib64/mpich/lib/:$HOME/usr/lib/:$HOME/usr/cudnn_v5.1/lib64/:$LD_LIBRARY_PATH"
 
 # add caffe things
 #export CAFFE_ROOT="/srv/share/caffe_gpu"
@@ -152,13 +152,29 @@ export TERM="rxvt-unicode"
 #  #export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/cogswell/usr/lib/"
 #  source /home/cogswell/local_venv/bin/activate
 #fi
-export PS1=""
+
+# disable the default virtualenv prompt change
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 export WORKON_HOME=~/envs
 if [ $IS_UBUNTU == 0 ]; then
     source /usr/local/bin/virtualenvwrapper.sh
     workon env3
     #workon env2
 fi
+# Allow custom PS1 to incorporate venv (bin/activate doesn't do this well)
+# see https://stackoverflow.com/questions/10406926/how-do-i-change-the-default-virtualenv-prompt
+function virtualenv_info(){
+    # Get Virtual Env
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        # Strip out the path and just leave the env name
+        venv="${VIRTUAL_ENV##*/}"
+    else
+        # In case you don't have one activated
+        venv=''
+    fi
+    [[ -n "$venv" ]] && echo "($venv) "
+}
+VENV="\$(virtualenv_info)";
 
 export PROMPT_DIRTRIM=2
 # is stdout a terminal?
@@ -188,10 +204,10 @@ fi
 
 source ~/.git-prompt.sh
 if [ "$color_prompt" = yes ]; then
-    PS1="\[$purple\]$PS1\[$blue\]\u\[$reset\]@\h:\[$orange\]\w\[$green\]\$(__git_ps1)\[$reset\]\$ "
+    PS1="\[$red\]$VENV\[$blue\]\u\[$reset\]@\h:\[$orange\]\w\[$green\]\$(__git_ps1)\[$reset\]\$ "
 else
     #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    PS1="\u@\h:\w$(__git_ps1)\$ "
+    PS1="$VENV\u@\h:\w$(__git_ps1)\$ "
 fi
 unset color_prompt force_color_prompt
 
@@ -205,3 +221,6 @@ export XDG_CONFIG_HOME="/home/cogswell/.xdg_config"
 # this is an alternative to the above which will not infinitely recurse terminals
 #source /opt/rh/devtoolset-2/enable
 
+
+# mosh needs utf-8 locale
+export LANG=en_US.utf8
